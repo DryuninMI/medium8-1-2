@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace medium8_1_2
 {
@@ -11,21 +12,22 @@ namespace medium8_1_2
             {
                 new Entity("1", 5, 5),
                 new Entity("2", 10, 10),
-                new Entity("3", 15, 15),
+                new Entity("3", 15, 15)
             };
 
-            SimulateField field = new SimulateField(entities);
-            field.OnAliveEntity += SimulateField_OnAliveEntity;
+            int maxCoordY = (int)entities.Max(entity => entity.CoordY);
+
+            Field field = new Field(entities);
+            field.EntityAlived += OnEntityAlived;
             field.Simulate();
 
-            Console.SetCursorPosition(0, field.MaxCoordYInEntities + 1);
-            Console.ReadKey();
+            Console.SetCursorPosition(0, maxCoordY + 1);
         }
 
-        private static void SimulateField_OnAliveEntity(object sender, EntityEventArgs e)
+        private static void OnEntityAlived(Entity obj)
         {
-            Console.SetCursorPosition(e.CoordX, e.CoordY);
-            Console.Write(e.Name);
+            Console.SetCursorPosition((int)obj.CoordX, (int)obj.CoordY);
+            Console.Write(obj.Name);
         }
     }
 }
