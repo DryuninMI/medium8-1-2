@@ -13,7 +13,7 @@ namespace medium8_1_2
         {
             if (entities.Count < 3)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(entities));
             }
 
             _entities = entities;
